@@ -35,7 +35,6 @@ userRouter.get('/:email', async (req, res): Promise<void> => {
 //login
 userRouter.post("/login", async (req: express.Request, res: express.Response):Promise<void> => {
     try {
-        console.log(req.body);
         const user = await User.findOne({email: req.body.email});
 
         if(!user) {
