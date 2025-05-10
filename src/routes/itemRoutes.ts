@@ -31,7 +31,7 @@ itemRouter.get("/:id", async (req, res):Promise<void> => {
 })
 
 //add new item
-itemRouter.post("/register",  (req, res) => {
+itemRouter.post("/",  (req, res) => {
     try{
         const item = new Item(req.body);
         item.save()

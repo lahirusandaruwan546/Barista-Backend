@@ -7,7 +7,9 @@ const customerRouter = express.Router();
 customerRouter.get("/", async (req , res ):Promise<void> => {
     try {
         const customers = await Customer.find();
+        console.log(customers);
         res.json(customers);
+        
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving customers' });
     }
@@ -32,12 +34,12 @@ customerRouter.get("/:id", async (req , res ):Promise<void> => {
 })
 
 //create a new customer
-customerRouter.post("/register",  (req, res) => {
+customerRouter.post("/",  async (req, res) => {
     try{
-        const customer = new Customer(req.body);
-        customer.save()
-            .then(r => res.send(r))
-            .catch(e =>res.send(e));
+        const {name, email, telephone} = req.body;
+        const customer = new Customer({name, email, telephone});
+        await customer.save()
+        res.status(201).json(customer);
         console.log(customer);
     }catch (error){
         console.log(error);
